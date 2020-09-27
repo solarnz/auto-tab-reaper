@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Auto Tab Reaper",
+  "version": "1.0",
+  "description": "Automatically discard or suspend tabs after a short amount of time to preserve system resources",
+  "homepage_url": "https://github.com/solarnz/auto-tab-reaper",
+  "icons": {
+    "48": "icons/reaper-48.png"
+  },
+
+  "options_ui": {
+    "page": "options.html"
+  },
+
+  "permissions": [
+    "menus",
+    "storage",
+    "tabs"
+  ],
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tabreaper@solarnz.dev"
+    }
+  }
+}
+
