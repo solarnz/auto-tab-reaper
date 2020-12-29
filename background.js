@@ -2,6 +2,7 @@ const defaultOptions = {
   pinned: false,
   audible: false,
   time: 1800000,
+  regexes: [],
 };
 
 async function discardTabs() {
@@ -15,6 +16,8 @@ async function discardTabs() {
   if (options.time === 0) {
     return;
   }
+
+  const regexes = options.regexes.map(r => new RegExp(r));
 
   const lastActiveLimit = Date.now() - (options.time);
 
@@ -37,6 +40,11 @@ async function discardTabs() {
     if (tab.lastAccessed > lastActiveLimit) {
       return false;
     }
+
+    // Ignore tabs the match the list of regular expressions
+    if (regexes.some((r) => r.test(tab.url))) {
+      return false;
+    };
 
     return true;
   });
