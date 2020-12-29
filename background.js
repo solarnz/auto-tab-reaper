@@ -11,6 +11,11 @@ async function discardTabs() {
     ...userOptions,
   };
 
+  // If the time has been set to 0, it disables the auto-discarding
+  if (options.time === 0) {
+    return;
+  }
+
   const lastActiveLimit = Date.now() - (options.time);
 
   let tabs = await browser.tabs.query({
