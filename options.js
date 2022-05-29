@@ -6,6 +6,7 @@ async function saveOptions(e) {
   const pinned = form.get('suspend-pinned') === 'on';
   const audible = form.get('suspend-audible') === 'on';
   const time = Number(document.querySelector("[name=suspend-time]").value);
+  const timeToClose = Number(document.querySelector("[name=close-time]").value);
   const regexes = (form.getAll('regex') || []).map(r => r.trim()).filter(r => r.length > 0);
 
   for (let regex of regexes) {
@@ -21,6 +22,7 @@ async function saveOptions(e) {
     pinned,
     audible,
     time,
+    timeToClose,
     regexes,
   };
 
@@ -32,6 +34,7 @@ async function loadOptions() {
   document.querySelector("[name=suspend-pinned]").checked = options.pinned || false;
   document.querySelector("[name=suspend-audible]").checked = options.audible || false;
   document.querySelector("[name=suspend-time]").value = options.time || 1800000;
+  document.querySelector("[name=close-time]").value = options.timeToClose || 3600000;
 
   const regexes = options.regexes || [];
   for (let regex of regexes) {

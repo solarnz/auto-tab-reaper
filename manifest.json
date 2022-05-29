@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Auto Tab Reaper",
-  "version": "1.1",
-  "description": "Automatically discard or suspend tabs after a short amount of time to preserve system resources",
+  "version": "1.2",
+  "description": "Automatically discard or suspend tabs after a short amount of time to preserve system resources. Closes Tabs if they are not used for a long (specifyed) time.",
   "homepage_url": "https://github.com/solarnz/auto-tab-reaper",
   "icons": {
     "48": "icons/reaper-48.png"

@@ -2,6 +2,7 @@ const defaultOptions = {
   pinned: false,
   audible: false,
   time: 1800000,
+  timeToClose: 3600000,
   regexes: [],
 };
 
@@ -54,8 +55,55 @@ async function discardTabs() {
   };
 }
 
+/**
+ * closes any tabs that are discarded, inactive for the specified time and discardable by options
+ */
+async function closeTabs() {
+  const userOptions = await browser.storage.sync.get();
+  const options = {
+    ...defaultOptions,
+    ...userOptions,
+  };
+
+  const regexes = options.regexes.map(r => new RegExp(r));
+
+  const lastActiveLimit = Date.now() - (options.timeToClose);
+
+  let tabs = await browser.tabs.query({
+    discarded: true, // Only get previously discarded tabs!
+    active: false, // Don't discard the current tab  
+  });
+
+  tabs = tabs.filter(function(tab) {
+    // Only close pinned tabs if the user has enabled it
+    if (!options.pinned && tab.pinned) {
+      return false;
+    }
+
+    // Only close audible tabs if the user has enabled it
+    if (!options.audible && tab.audible) {
+      return false;
+    }
+
+    // Only close tabs that are inactive for the specified time
+    if (tab.lastAccessed > lastActiveLimit) {
+      return false;
+    }
+
+    // Ignore tabs the match the list of regular expressions
+    if (regexes.some((r) => r.test(tab.url))) {
+      return false;
+    };
+
+    return true;
+  });
+}
+
 // Check once a minute if there are any tabs we should discard
 setInterval(discardTabs, 60*1000);
+
+// Check every second if there are any tabs we should close
+setInterval(closeTabs, 60*1000);
 
 // Add the context menu item on tabs
 //
