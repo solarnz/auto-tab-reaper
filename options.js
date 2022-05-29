@@ -5,9 +5,17 @@ async function saveOptions(e) {
 
   const pinned = form.get('suspend-pinned') === 'on';
   const audible = form.get('suspend-audible') === 'on';
-  const time = Number(document.querySelector("[name=suspend-time]").value);
-  const timeToClose = Number(document.querySelector("[name=close-time]").value);
   const regexes = (form.getAll('regex') || []).map(r => r.trim()).filter(r => r.length > 0);
+  let time = Number(document.querySelector("[name=suspend-time]").value);
+  let timeToClose = Number(document.querySelector("[name=close-time]").value);
+
+  if (time === 99999999){
+    time = Number(document.querySelector("[name=suspend-time-custom]").value) * 6000;
+  }
+
+  if (timeToClose === 99999999){
+    timeToClose = Number(document.querySelector("[name=close-time-custom]").value) * 6000;
+  }
 
   for (let regex of regexes) {
     try {

@@ -27,20 +27,28 @@
         Suspend tabs after
         <select name="suspend-time">
           <option value="0">Off</option>
-          <option value="60000">1 minute</option>
-          <option value="300000">5 minutes</option>
-          <option value="600000">10 minutes</option>
-          <option value="1800000">30 minutes</option>
+          <option value="60000">1</option>
+          <option value="300000">5</option>
+          <option value="600000">10</option>
+          <option value="1800000">30</option>
+          <option value="99999999">Custom</option>
         </select>
+        <input type="number" name="suspend-time-custom" min="0" max="99999999"/>
+        Minutes
       </label>
       <label>
         Close tabs after
         <select name="close-time">
           <option value="0">Off</option>
-          <option value="600000">10 minute</option>
-          <option value="900000">15 minutes</option>
-          <option value="1800000">30 minutes</option>
-          <option value="3600000">1 hour</option>
+          <option value="600000">10</option>
+          <option value="900000">15</option>
+          <option value="1800000">30</option>
+          <option value="3600000">1</option>
+          <option value="7200000">2</option>
+          <option value="14400000">4</option>
+          <option value="99999999">Custom</option>
+          <input type="number" name="suspend-time-custom" min="0" max="99999999"/>
+          Minutes
         </select>
       </label>
       <br/>
