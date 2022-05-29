@@ -2,7 +2,7 @@ const defaultOptions = {
   pinned: false,
   audible: false,
   time: 1800000,
-  timeToClose: 3600000,
+  timeToClose: 0,
   regexes: [],
 };
 
